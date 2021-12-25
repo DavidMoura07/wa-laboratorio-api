@@ -11,11 +11,14 @@ export class LaboratoryService {
   ) {} 
 
   create(createLaboratoryDto: CreateLaboratoryDto) {
-    return 'This action adds a new laboratory';
+    return this.laboratoriesRepository.create({
+      name: createLaboratoryDto.nome,
+      address: createLaboratoryDto.endereco
+    })
   }
 
   findAll() {
-    return `This action returns all laboratory`;
+    return this.laboratoriesRepository.findAll({ isActive: true });
   }
 
   findOne(id: number) {
@@ -23,10 +26,13 @@ export class LaboratoryService {
   }
 
   update(id: number, updateLaboratoryDto: UpdateLaboratoryDto) {
-    return `This action updates a #${id} laboratory`;
+    return this.laboratoriesRepository.update(id, {
+      name: updateLaboratoryDto.nome,
+      address: updateLaboratoryDto.endereco
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} laboratory`;
+    return this.laboratoriesRepository.remove(id);
   }
 }

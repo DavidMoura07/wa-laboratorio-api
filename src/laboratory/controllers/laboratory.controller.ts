@@ -3,6 +3,7 @@ import { LaboratoryService } from '../services/laboratory.service';
 import { CreateLaboratoryDto } from '../dto/create-laboratory.dto';
 import { UpdateLaboratoryDto } from '../dto/update-laboratory.dto';
 import {
+  ApiBody,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -17,8 +18,8 @@ export class LaboratoryController {
   @Post()
   @ApiOperation({ summary: 'Create Laboratory' })
   @ApiResponse({ status: 201, description: 'Created.' })
-  create(@Body() createLaboratoryDto: CreateLaboratoryDto) {
-    return this.laboratoryService.create(createLaboratoryDto);
+  async create(@Body() createLaboratoryDto: CreateLaboratoryDto) {
+    return await this.laboratoryService.create(createLaboratoryDto);
   }
 
   @Get()
@@ -46,6 +47,7 @@ export class LaboratoryController {
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update Laboratory' })
+  @ApiBody({ type: UpdateLaboratoryDto })
   @ApiResponse({
     status: 200,
     description: 'The found record',
