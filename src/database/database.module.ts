@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Exam } from './entities/exam.entity';
 import { Laboratory } from './entities/laboratory.entity';
+import { ExamsRepository } from './repositories/exams.repository';
 import { LaboratoriesRepository } from './repositories/laboratories.repository';
 
 @Module({
@@ -16,13 +18,18 @@ import { LaboratoriesRepository } from './repositories/laboratories.repository';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Laboratory])
+    TypeOrmModule.forFeature([
+      Laboratory, 
+      Exam,
+    ]),
   ],
   providers: [
     LaboratoriesRepository,
+    ExamsRepository
   ],
   exports: [
     LaboratoriesRepository,
+    ExamsRepository,
   ]
 })
 export class DatabaseModule {}

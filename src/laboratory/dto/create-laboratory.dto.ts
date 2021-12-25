@@ -1,4 +1,4 @@
 export class CreateLaboratoryDto {
-  nome: string;
-  endereco: string;
+  name: string;
+  address: string;
 }

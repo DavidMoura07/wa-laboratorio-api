@@ -11,10 +11,7 @@ export class LaboratoryService {
   ) {} 
 
   create(createLaboratoryDto: CreateLaboratoryDto) {
-    return this.laboratoriesRepository.create({
-      name: createLaboratoryDto.nome,
-      address: createLaboratoryDto.endereco
-    })
+    return this.laboratoriesRepository.create(createLaboratoryDto)
   }
 
   findAll() {
@@ -26,10 +23,7 @@ export class LaboratoryService {
   }
 
   update(id: number, updateLaboratoryDto: UpdateLaboratoryDto) {
-    return this.laboratoriesRepository.update(id, {
-      name: updateLaboratoryDto.nome,
-      address: updateLaboratoryDto.endereco
-    });
+    return this.laboratoriesRepository.update(id, updateLaboratoryDto);
   }
 
   remove(id: number) {
