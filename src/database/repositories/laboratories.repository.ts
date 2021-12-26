@@ -27,7 +27,7 @@ export class LaboratoriesRepository {
     return this.repository.find({
       where: parameters
     }); 
-}
+  }
 
   public async update(id: number, laboratory: Partial<Laboratory>) {
     await this.repository.update(id, laboratory);
@@ -38,4 +38,61 @@ export class LaboratoriesRepository {
     await this.repository.update(id, { isActive: false });
     return await this.repository.findOne(id);
   }
+
+  // Batch Actions
+  public async createMany(laboratories: Partial<Laboratory>[]) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      for(const laboratory of laboratories) {
+        await queryRunner.manager.save(Laboratory, laboratory);
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  public async updateMany(laboratories: Partial<Laboratory>[]) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      for(const laboratory of laboratories) {
+        await queryRunner.manager.update(Laboratory, laboratory.id, laboratory);
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  public async removeMany(laboratories: Partial<Laboratory>[]) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      for(const laboratory of laboratories) {
+        await queryRunner.manager.update(Laboratory, laboratory.id, { isActive: false });
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+  // End Batch actions
+
 }

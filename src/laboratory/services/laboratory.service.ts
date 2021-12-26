@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Laboratory } from 'src/database/entities/laboratory.entity';
 import { LaboratoriesRepository } from '../../database/repositories/laboratories.repository';
 import { CreateLaboratoryDto } from '../dto/create-laboratory.dto';
 import { UpdateLaboratoryDto } from '../dto/update-laboratory.dto';
@@ -29,4 +30,18 @@ export class LaboratoryService {
   remove(id: number) {
     return this.laboratoriesRepository.remove(id);
   }
+
+  // Batch actions
+  createMany(createLaboratories: CreateLaboratoryDto[]) {
+    return this.laboratoriesRepository.createMany(createLaboratories)
+  }
+
+  updateMany(updateLaboratories: UpdateLaboratoryDto[]) {
+    return this.laboratoriesRepository.updateMany(updateLaboratories);
+  }
+
+  removeMany(laboratories: Partial<Laboratory>[]) {
+    return this.laboratoriesRepository.removeMany(laboratories);
+  }
+  // End Batch actions
 }

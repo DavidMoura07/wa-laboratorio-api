@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { LaboratoryService } from './services/laboratory.service';
 import { LaboratoryController } from './controllers/laboratory.controller';
 import { DatabaseModule } from '../database/database.module';
+import { LaboratoryBatchController } from './controllers/laboratoryBatch.controller';
 
 @Module({
   imports: [
@@ -10,6 +11,9 @@ import { DatabaseModule } from '../database/database.module';
   providers: [
     LaboratoryService,
   ],
-  controllers: [LaboratoryController],
+  controllers: [
+    LaboratoryController,
+    LaboratoryBatchController,
+  ],
 })
 export class LaboratoryModule {}
