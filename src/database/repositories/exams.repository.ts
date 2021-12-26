@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, Repository } from 'typeorm';
 import { Exam } from '../entities/exam.entity';
+import { Laboratory } from '../entities/laboratory.entity';
 
 @Injectable()
 export class ExamsRepository {
@@ -37,5 +38,21 @@ export class ExamsRepository {
   public async remove(id: number) {
     await this.repository.update(id, { isActive: false });
     return await this.repository.findOne(id);
+  }
+
+  public async link(exam: Exam, laboratory: Laboratory) {
+
+    if( exam.laboratories.map(x => x.id).includes(laboratory.id) ){
+      return exam;
+    } else {
+      exam.laboratories.push(laboratory);
+    }
+
+    return await this.repository.save(exam);
+  }
+
+  public async unlink(exam: Exam, laboratory: Laboratory) {
+    exam.laboratories = exam.laboratories.filter(x => x.id !== laboratory.id)
+    return await this.repository.save(exam);
   }
 }

@@ -15,7 +15,7 @@ export class Exam {
   @Column({ default: true })
   isActive: boolean;
 
-  @ManyToMany(() => Laboratory)
+  @ManyToMany(() => Laboratory, laboratory => laboratory.exams, { eager: true, cascade: false })
   @JoinTable({ name: 'exams_laboratories' })
   laboratories: Laboratory[];
 }

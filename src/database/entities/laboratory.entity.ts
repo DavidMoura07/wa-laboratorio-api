@@ -1,4 +1,6 @@
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Exam } from './exam.entity';
 
 @Entity('laboratories')
 export class Laboratory {
@@ -13,4 +15,9 @@ export class Laboratory {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @ApiHideProperty()
+  @ManyToMany(() => Exam, exam => exam.laboratories, { cascade: false })
+  exams: Exam[];
+
 }

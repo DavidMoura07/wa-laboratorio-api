@@ -61,4 +61,18 @@ export class ExamsController {
   remove(@Param('id') id: string) {
     return this.examsService.remove(+id);
   }
+
+  @Post('link/:examId/laboratory/:laboratoryId')
+  @ApiOperation({ summary: 'Associate an active exam to an active laboratory' })
+  @ApiResponse({ status: 200, description: 'Associated.' })
+  link(@Param('examId') examId: string, @Param('laboratoryId') laboratoryId: string) {
+    return this.examsService.link(+examId, +laboratoryId);
+  }
+
+  @Post('unlink/:examId/laboratory/:laboratoryId')
+  @ApiOperation({ summary: 'Disassociate an active exam to an active laboratory' })
+  @ApiResponse({ status: 200, description: 'Associated.' })
+  unlink(@Param('examId') examId: string, @Param('laboratoryId') laboratoryId: string) {
+    return this.examsService.unlink(+examId, +laboratoryId);
+  }
 }
