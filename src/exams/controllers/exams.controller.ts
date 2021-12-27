@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ExamsService } from '../services/exams.service';
 import { CreateExamDto } from '../dto/create-exam.dto';
 import { UpdateExamDto } from '../dto/update-exam.dto';
 import {
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -29,8 +30,12 @@ export class ExamsController {
     type: Exam,
     isArray: true
   })
-  findAll() {
-    return this.examsService.findAll();
+  @ApiQuery({
+    name: 'name',
+    required: false,
+  })
+  findAll(@Query('name') name?: string ) {
+    return this.examsService.findAll({ isActive: true, name });
   }
 
   @Get(':id')

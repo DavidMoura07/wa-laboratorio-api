@@ -20,8 +20,11 @@ export class ExamsService {
     });
   }
 
-  findAll() {
-    return this.examsRepository.findAll({ isActive: true });
+  findAll(filters: Partial<Exam>) {
+    if(!filters.name){
+      delete filters.name
+    }
+    return this.examsRepository.findAll(filters);
 
   }
 
