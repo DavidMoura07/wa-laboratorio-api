@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Exam } from 'src/database/entities/exam.entity';
 import { ExamsRepository } from 'src/database/repositories/exams.repository';
 import { LaboratoriesRepository } from 'src/database/repositories/laboratories.repository';
 import { CreateExamDto } from '../dto/create-exam.dto';
@@ -59,4 +60,18 @@ export class ExamsService {
       throw new Error("Exam or Laboratory are inactives or does't exists.")
     }
   }
+
+  // Batch actions
+  createMany(createLaboratories: CreateExamDto[]) {
+    return this.examsRepository.createMany(createLaboratories)
+  }
+
+  updateMany(updateLaboratories: UpdateExamDto[]) {
+    return this.examsRepository.updateMany(updateLaboratories);
+  }
+
+  removeMany(laboratories: Partial<Exam>[]) {
+    return this.examsRepository.removeMany(laboratories);
+  }
+  // End Batch actions
 }

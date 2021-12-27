@@ -55,4 +55,60 @@ export class ExamsRepository {
     exam.laboratories = exam.laboratories.filter(x => x.id !== laboratory.id)
     return await this.repository.save(exam);
   }
+
+  // Batch Actions
+  public async createMany(exams: Partial<Exam>[]) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      for(const exam of exams) {
+        await queryRunner.manager.save(Exam, exam);
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  public async updateMany(exams: Partial<Exam>[]) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      for(const exam of exams) {
+        await queryRunner.manager.update(Exam, exam.id, exam);
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  public async removeMany(exams: Partial<Exam>[]) {
+    const queryRunner = this.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      for(const exam of exams) {
+        await queryRunner.manager.update(Exam, exam.id, { isActive: false });
+      }
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+  // End Batch actions
 }
