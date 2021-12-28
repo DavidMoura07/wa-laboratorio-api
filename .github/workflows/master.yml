@@ -1,16 +1,32 @@
-name: Deploy
-
 on:
   push:
     branches:
       - master
 
+name: Build and Deploy into Heroku
 jobs:
-  build:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - name: Checkout
+        id: checkout-repo
+        uses: actions/checkout@v2
+
+      - name: Make env file
+        id: make-env-file
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          file_name: .env
+          envkey_DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          envkey_DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+          envkey_DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+
+      - name: Deploy into Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "wa-laboratory"
