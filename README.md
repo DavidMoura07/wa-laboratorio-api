@@ -24,8 +24,53 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This repository is node API using NestJs for a simple application that manager laboratoies and exams.
+It includes endpoints to atend follow situations:
 
+  - Laboratory:
+    - Create new laboratory;
+    - Get a list of actives laboratories;
+    - Update a laboratory;
+    - Remove logicaly an active laboratory;
+  - Exams:
+    - Create new Exam;
+    - Get a list of actives exams;
+    - Update an exam;
+    - Remove logicaly an active laboratory;
+  - Links
+    - Link an active exam to an active laboratory;
+    - Unlink an active exam to an active laboratory;
+  
+  Important informations:
+   - An exam can be linked to more than one laboratory;
+   - When a laboratory or exam is created, their are consider actives and receive an 'ID' that is automaticaly generated
+
+  Entities:
+   - Laboratory
+     - name
+     - address
+     - status [active, incative]
+   - Exam
+     - name
+     - type [clinical analysis, image]
+     - status [active, incative]
+
+  Extra functionalities:
+   - Possibility to perform registration, update and removal in batch;
+   - Endpoint which searches by exam name and returns all labs associated with that exam.
+
+Observations:
+ - Address was defined as a plain text to simplify the solution, but can be improved by using a separate table and entity.
+
+## Documentation
+The documentation can be found at /docs by 
+[swagger](http://localhost/docs).
+
+## Database
+ - Was used an postgres database with follow ER model:
+
+ ![ER model](https://github.com/DavidMoura07/wa-laboratorio-api/blob/master/Documentation/images/ER model.png)
+ 
 ## Installation
 
 ```bash
@@ -45,29 +90,10 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+## Docker usage
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# docker-compose
+$ docker-compose up
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
