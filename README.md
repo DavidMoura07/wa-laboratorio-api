@@ -64,7 +64,7 @@ Observations:
 
 ## Documentation
 The documentation can be found at /docs by 
-[swagger](http://localhost/docs).
+[swagger](https://wa-laboratory.herokuapp.com/docs/).
 
 ## Database
  - Was used an postgres database with follow ER model:
