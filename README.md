@@ -69,7 +69,7 @@ The documentation can be found at /docs by
 ## Database
  - Was used an postgres database with follow ER model:
 
- ![ER model](https://github.com/DavidMoura07/wa-laboratorio-api/blob/master/Documentation/images/ER model.png)
+ ![ER model](https://raw.githubusercontent.com/DavidMoura07/wa-laboratorio-api/master/Documentation/images/ER%20Model.png)
  
 ## Installation
 
