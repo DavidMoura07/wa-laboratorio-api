@@ -1,11 +1,12 @@
-import { Controller, Post, Body, Patch, Delete, HttpCode } from '@nestjs/common';
 import {
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { Laboratory } from 'src/database/entities/laboratory.entity';
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateExamDto } from '../dto/create-exam.dto';
 import { UpdateExamBatchDto } from '../dto/update-exam-batch.dto';
 import { ExamsService } from '../services/exams.service';

@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsNotEmpty } from 'class-validator';
 
 export enum ExamTypes {
   CLINICAL_ANALYSIS = 'ANÁLISE CLINICA',
@@ -12,7 +12,7 @@ export class CreateExamDto {
   @IsNotEmpty()
   @IsEnum(ExamTypes)
   @ApiProperty({
-    enum: ['ANÁLISE CLINICA', 'IMAGEM']
+    enum: ['ANÁLISE CLINICA', 'IMAGEM'],
   })
   type: string;
 }

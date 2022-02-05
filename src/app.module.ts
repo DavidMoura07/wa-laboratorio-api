@@ -11,12 +11,11 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
     DatabaseModule,
-    LaboratoryModule, 
+    LaboratoryModule,
     ExamsModule,
   ],
   controllers: [],
   providers: [],
-  exports: []
+  exports: [],
 })
-export class AppModule {
-}
+export class AppModule {}

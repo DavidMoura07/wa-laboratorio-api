@@ -3,11 +3,10 @@ import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { CreateLaboratoryDto } from './create-laboratory.dto';
 
 export class UpdateLaboratoryBatchDto extends PartialType(CreateLaboratoryDto) {
-  
   @IsNotEmpty()
   @IsInt()
   id: number;
-  
+
   @IsOptional()
   @IsString()
   name?: string;

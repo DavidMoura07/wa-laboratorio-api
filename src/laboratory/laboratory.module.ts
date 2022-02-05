@@ -5,15 +5,8 @@ import { DatabaseModule } from '../database/database.module';
 import { LaboratoryBatchController } from './controllers/laboratoryBatch.controller';
 
 @Module({
-  imports: [
-    DatabaseModule,
-  ],
-  providers: [
-    LaboratoryService,
-  ],
-  controllers: [
-    LaboratoryController,
-    LaboratoryBatchController,
-  ],
+  imports: [DatabaseModule],
+  providers: [LaboratoryService],
+  controllers: [LaboratoryController, LaboratoryBatchController],
 })
 export class LaboratoryModule {}

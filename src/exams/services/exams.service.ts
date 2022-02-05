@@ -7,8 +7,7 @@ import { UpdateExamDto } from '../dto/update-exam.dto';
 
 @Injectable()
 export class ExamsService {
-
-  constructor (
+  constructor(
     private readonly examsRepository: ExamsRepository,
     private readonly laboratoriesRepository: LaboratoriesRepository,
   ) {}
@@ -16,16 +15,15 @@ export class ExamsService {
   create(createExamDto: CreateExamDto) {
     return this.examsRepository.create({
       name: createExamDto.name,
-      type: createExamDto.type
+      type: createExamDto.type,
     });
   }
 
   findAll(filters: Partial<Exam>) {
-    if(!filters.name){
-      delete filters.name
+    if (!filters.name) {
+      delete filters.name;
     }
     return this.examsRepository.findAll(filters);
-
   }
 
   findOne(id: number) {
@@ -43,30 +41,28 @@ export class ExamsService {
   async link(examId: number, laboratoryId: number) {
     const exam = await this.examsRepository.findById(examId);
     const laboratory = await this.laboratoriesRepository.findById(laboratoryId);
-    
-    if(exam.isActive && laboratory.isActive) {
-      return await this.examsRepository.link(exam, laboratory)
 
+    if (exam.isActive && laboratory.isActive) {
+      return await this.examsRepository.link(exam, laboratory);
     } else {
-      throw new Error("Exam or Laboratory are inactives or does't exists.")
+      throw new Error("Exam or Laboratory are inactives or does't exists.");
     }
   }
 
   async unlink(examId: number, laboratoryId: number) {
     const exam = await this.examsRepository.findById(examId);
     const laboratory = await this.laboratoriesRepository.findById(laboratoryId);
-    
-    if(exam.isActive && laboratory.isActive) {
-      return await this.examsRepository.unlink(exam, laboratory)
 
+    if (exam.isActive && laboratory.isActive) {
+      return await this.examsRepository.unlink(exam, laboratory);
     } else {
-      throw new Error("Exam or Laboratory are inactives or does't exists.")
+      throw new Error("Exam or Laboratory are inactives or does't exists.");
     }
   }
 
   // Batch actions
   createMany(createLaboratories: CreateExamDto[]) {
-    return this.examsRepository.createMany(createLaboratories)
+    return this.examsRepository.createMany(createLaboratories);
   }
 
   updateMany(updateLaboratories: UpdateExamDto[]) {

@@ -4,7 +4,6 @@ import { IsEnum, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 import { CreateExamDto, ExamTypes } from './create-exam.dto';
 
 export class UpdateExamBatchDto extends PartialType(CreateExamDto) {
-  
   @IsNotEmpty()
   @IsInt()
   id: number;
@@ -15,7 +14,7 @@ export class UpdateExamBatchDto extends PartialType(CreateExamDto) {
   @IsOptional()
   @IsEnum(ExamTypes)
   @ApiProperty({
-    enum: ['ANÁLISE CLINICA', 'IMAGEM']
+    enum: ['ANÁLISE CLINICA', 'IMAGEM'],
   })
   type?: string;
 }

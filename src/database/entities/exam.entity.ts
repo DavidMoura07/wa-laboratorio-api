@@ -1,5 +1,11 @@
 import { Laboratory } from './laboratory.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 @Entity('exams')
 export class Exam {
@@ -15,7 +21,10 @@ export class Exam {
   @Column({ default: true })
   isActive: boolean;
 
-  @ManyToMany(() => Laboratory, laboratory => laboratory.exams, { eager: true, cascade: false })
+  @ManyToMany(() => Laboratory, (laboratory) => laboratory.exams, {
+    eager: true,
+    cascade: false,
+  })
   @JoinTable({ name: 'exams_laboratories' })
   laboratories: Laboratory[];
 }

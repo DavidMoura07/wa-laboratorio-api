@@ -17,7 +17,6 @@ export class Laboratory {
   isActive: boolean;
 
   @ApiHideProperty()
-  @ManyToMany(() => Exam, exam => exam.laboratories, { cascade: false })
+  @ManyToMany(() => Exam, (exam) => exam.laboratories, { cascade: false })
   exams: Exam[];
-
 }

@@ -6,29 +6,28 @@ import { Laboratory } from '../entities/laboratory.entity';
 
 @Injectable()
 export class ExamsRepository {
-
   constructor(
     @InjectRepository(Exam)
     private readonly repository: Repository<Exam>,
-    private readonly connection: Connection
-  ) {} 
+    private readonly connection: Connection,
+  ) {}
 
   public async findById(id: number) {
-    return this.repository.findOneOrFail(id); 
+    return this.repository.findOneOrFail(id);
   }
 
   public async create(laboratory: Partial<Exam>) {
     return this.repository.save({
       ...laboratory,
-      isActive: true
+      isActive: true,
     });
   }
 
   public async findAll(parameters: Partial<Exam>) {
     return this.repository.find({
-      where: parameters
-    }); 
-}
+      where: parameters,
+    });
+  }
 
   public async update(id: number, laboratory: Partial<Exam>) {
     await this.repository.update(id, laboratory);
@@ -41,8 +40,7 @@ export class ExamsRepository {
   }
 
   public async link(exam: Exam, laboratory: Laboratory) {
-
-    if( exam.laboratories.map(x => x.id).includes(laboratory.id) ){
+    if (exam.laboratories.map((x) => x.id).includes(laboratory.id)) {
       return exam;
     } else {
       exam.laboratories.push(laboratory);
@@ -52,7 +50,7 @@ export class ExamsRepository {
   }
 
   public async unlink(exam: Exam, laboratory: Laboratory) {
-    exam.laboratories = exam.laboratories.filter(x => x.id !== laboratory.id)
+    exam.laboratories = exam.laboratories.filter((x) => x.id !== laboratory.id);
     return await this.repository.save(exam);
   }
 
@@ -63,7 +61,7 @@ export class ExamsRepository {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      for(const exam of exams) {
+      for (const exam of exams) {
         await queryRunner.manager.save(Exam, exam);
       }
       await queryRunner.commitTransaction();
@@ -81,7 +79,7 @@ export class ExamsRepository {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      for(const exam of exams) {
+      for (const exam of exams) {
         await queryRunner.manager.update(Exam, exam.id, exam);
       }
       await queryRunner.commitTransaction();
@@ -99,7 +97,7 @@ export class ExamsRepository {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      for(const exam of exams) {
+      for (const exam of exams) {
         await queryRunner.manager.update(Exam, exam.id, { isActive: false });
       }
       await queryRunner.commitTransaction();

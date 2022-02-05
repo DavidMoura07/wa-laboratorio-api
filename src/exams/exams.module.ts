@@ -6,10 +6,7 @@ import { ExamsBatchController } from './controllers/examsBatch.controller';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [
-    ExamsController,
-    ExamsBatchController,
-  ],
-  providers: [ExamsService]
+  controllers: [ExamsController, ExamsBatchController],
+  providers: [ExamsService],
 })
 export class ExamsModule {}

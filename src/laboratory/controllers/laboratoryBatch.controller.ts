@@ -1,13 +1,14 @@
-import { Controller, Post, Body, Patch, Delete, HttpCode } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { LaboratoryService } from '../services/laboratory.service';
 import { CreateLaboratoryDto } from '../dto/create-laboratory.dto';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { Laboratory } from 'src/database/entities/laboratory.entity';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateLaboratoryBatchDto } from '../dto/update-laboratory-batch.dto';
 
 @ApiTags('Laboratory - Batch Actions')

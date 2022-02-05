@@ -6,13 +6,12 @@ import { UpdateLaboratoryDto } from '../dto/update-laboratory.dto';
 
 @Injectable()
 export class LaboratoryService {
-
   constructor(
     private readonly laboratoriesRepository: LaboratoriesRepository,
-  ) {} 
+  ) {}
 
   create(createLaboratoryDto: CreateLaboratoryDto) {
-    return this.laboratoriesRepository.create(createLaboratoryDto)
+    return this.laboratoriesRepository.create(createLaboratoryDto);
   }
 
   findAll() {
@@ -33,7 +32,7 @@ export class LaboratoryService {
 
   // Batch actions
   createMany(createLaboratories: CreateLaboratoryDto[]) {
-    return this.laboratoriesRepository.createMany(createLaboratories)
+    return this.laboratoriesRepository.createMany(createLaboratories);
   }
 
   updateMany(updateLaboratories: UpdateLaboratoryDto[]) {

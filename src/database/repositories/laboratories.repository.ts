@@ -5,28 +5,27 @@ import { Laboratory } from '../entities/laboratory.entity';
 
 @Injectable()
 export class LaboratoriesRepository {
-
   constructor(
     @InjectRepository(Laboratory)
     private readonly repository: Repository<Laboratory>,
-    private readonly connection: Connection
-  ) {} 
+    private readonly connection: Connection,
+  ) {}
 
   public async findById(id: number) {
-    return this.repository.findOneOrFail(id); 
+    return this.repository.findOneOrFail(id);
   }
 
   public async create(laboratory: Partial<Laboratory>) {
     return this.repository.save({
       ...laboratory,
-      isActive: true
+      isActive: true,
     });
   }
 
   public async findAll(parameters: Partial<Laboratory>) {
     return this.repository.find({
-      where: parameters
-    }); 
+      where: parameters,
+    });
   }
 
   public async update(id: number, laboratory: Partial<Laboratory>) {
@@ -46,7 +45,7 @@ export class LaboratoriesRepository {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      for(const laboratory of laboratories) {
+      for (const laboratory of laboratories) {
         await queryRunner.manager.save(Laboratory, laboratory);
       }
       await queryRunner.commitTransaction();
@@ -64,7 +63,7 @@ export class LaboratoriesRepository {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      for(const laboratory of laboratories) {
+      for (const laboratory of laboratories) {
         await queryRunner.manager.update(Laboratory, laboratory.id, laboratory);
       }
       await queryRunner.commitTransaction();
@@ -82,8 +81,10 @@ export class LaboratoriesRepository {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      for(const laboratory of laboratories) {
-        await queryRunner.manager.update(Laboratory, laboratory.id, { isActive: false });
+      for (const laboratory of laboratories) {
+        await queryRunner.manager.update(Laboratory, laboratory.id, {
+          isActive: false,
+        });
       }
       await queryRunner.commitTransaction();
     } catch (err) {
@@ -94,5 +95,4 @@ export class LaboratoriesRepository {
     }
   }
   // End Batch actions
-
 }

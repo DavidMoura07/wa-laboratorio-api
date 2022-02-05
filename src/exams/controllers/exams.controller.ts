@@ -1,13 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { ExamsService } from '../services/exams.service';
 import { CreateExamDto } from '../dto/create-exam.dto';
 import { UpdateExamDto } from '../dto/update-exam.dto';
-import {
-  ApiOperation,
-  ApiQuery,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Exam } from '../../database/entities/exam.entity';
 
 @ApiTags('Exam')
@@ -28,13 +32,13 @@ export class ExamsController {
     status: 200,
     description: 'The found records',
     type: Exam,
-    isArray: true
+    isArray: true,
   })
   @ApiQuery({
     name: 'name',
     required: false,
   })
-  findAll(@Query('name') name?: string ) {
+  findAll(@Query('name') name?: string) {
     return this.examsService.findAll({ isActive: true, name });
   }
 
@@ -70,14 +74,22 @@ export class ExamsController {
   @Post('link/:examId/laboratory/:laboratoryId')
   @ApiOperation({ summary: 'Associate an active exam to an active laboratory' })
   @ApiResponse({ status: 200, description: 'Associated.' })
-  link(@Param('examId') examId: string, @Param('laboratoryId') laboratoryId: string) {
+  link(
+    @Param('examId') examId: string,
+    @Param('laboratoryId') laboratoryId: string,
+  ) {
     return this.examsService.link(+examId, +laboratoryId);
   }
 
   @Post('unlink/:examId/laboratory/:laboratoryId')
-  @ApiOperation({ summary: 'Disassociate an active exam to an active laboratory' })
+  @ApiOperation({
+    summary: 'Disassociate an active exam to an active laboratory',
+  })
   @ApiResponse({ status: 200, description: 'Associated.' })
-  unlink(@Param('examId') examId: string, @Param('laboratoryId') laboratoryId: string) {
+  unlink(
+    @Param('examId') examId: string,
+    @Param('laboratoryId') laboratoryId: string,
+  ) {
     return this.examsService.unlink(+examId, +laboratoryId);
   }
 }
